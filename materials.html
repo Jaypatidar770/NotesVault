@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Materials - NotesVault</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>📚 NotesVault</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="materials.html" class="active">Materials</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Browse Study Materials</h2>
+
+    <!-- Search + Filter -->
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Search materials..." />
+      <select id="categoryFilter">
+        <option value="all">All Subjects</option>
+        <option value="math">Math</option>
+        <option value="physics">Physics</option>
+        <option value="chemistry">Chemistry</option>
+      </select>
+    </div>
+
+    <!-- Materials -->
+    <div class="materials">
+      <div class="card" data-category="math">
+        <h3>Math - Class 10 Notes</h3>
+        <p>All chapters + formulas</p>
+        <a href="https://drive.google.com/your-math-link" class="btn" target="_blank">Download</a>
+        <p><span class="downloads" data-count="0">Downloads: 0</span></p>
+      </div>
+
+      <div class="card" data-category="physics">
+        <h3>Physics - NEET Crash Guide</h3>
+        <p>Quick revision + MCQs</p>
+        <a href="https://drive.google.com/your-physics-link" class="btn" target="_blank">Download</a>
+        <p><span class="downloads" data-count="0">Downloads: 0</span></p>
+      </div>
+
+      <div class="card" data-category="chemistry">
+        <h3>Chemistry - Class 12 Notes</h3>
+        <p>Organic, Inorganic, Physical</p>
+        <a href="https://drive.google.com/your-chemistry-link" class="btn" target="_blank">Download</a>
+        <p><span class="downloads" data-count="0">Downloads: 0</span></p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 NotesVault</p>
+  </footer>
+
+  <!-- JS Search + Filter + Downloads -->
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keyup", () => {
+      const query = searchInput.value.toLowerCase();
+      document.querySelectorAll(".card").forEach(card => {
+        const title = card.querySelector("h3").innerText.toLowerCase();
+        card.style.display = title.includes(query) ? "block" : "none";
+      });
+    });
+
+    const categoryFilter = document.getElementById("categoryFilter");
+    categoryFilter.addEventListener("change", () => {
+      const selected = categoryFilter.value;
+      document.querySelectorAll(".card").forEach(card => {
+        const category = card.getAttribute("data-category");
+        card.style.display = (selected === "all" || selected === category) ? "block" : "none";
+      });
+    });
+
+    document.querySelectorAll(".btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const counter = btn.parentElement.querySelector(".downloads");
+        let count = parseInt(counter.getAttribute("data-count"));
+        count++;
+        counter.setAttribute("data-count", count);
+        counter.innerText = "Downloads: " + count;
+      });
+    });
+  </script>
+</body>
+</html>
